@@ -30,5 +30,29 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title_second_activity" />
 
+    <EditText
+        android:id="@+id/edit_txt_returned_data"
+        android:layout_width="200dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="148dp"
+        android:hint="Input data to return"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title_second_activity"
+        app:layout_constraintVertical_bias="0.122" />
+
+    <Button
+        android:id="@+id/button_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="Return data"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_txt_returned_data" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
