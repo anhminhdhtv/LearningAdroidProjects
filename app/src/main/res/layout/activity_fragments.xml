@@ -6,4 +6,161 @@
     android:layout_height="match_parent"
     tools:context=".FragmentsActivity">
 
+    <Button
+        android:id="@+id/button_add_fragment_a"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:onClick="AddFragment"
+        android:padding="5dp"
+        android:text="Add A"
+        android:textSize="12dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <Button
+        android:id="@+id/button_remove_fragment_a"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:onClick="RemoveFragment"
+        android:padding="5dp"
+        android:text="Remove A"
+        android:textSize="12dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/button_add_fragment_a" />
+
+    <Button
+        android:id="@+id/button_add_fragment_b"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:onClick="AddFragment"
+        android:padding="5dp"
+        android:text="Add B"
+        android:textSize="12dp"
+        app:layout_constraintStart_toEndOf="@id/button_add_fragment_a"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button_remove_fragment_b"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:onClick="RemoveFragment"
+        android:padding="5dp"
+        android:text="Remove B"
+        android:textSize="12dp"
+        app:layout_constraintStart_toEndOf="@id/button_remove_fragment_a"
+        app:layout_constraintTop_toBottomOf="@id/button_add_fragment_b" />
+
+    <Button
+        android:id="@+id/button_replace_fragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:onClick="ReplaceFragment"
+        android:padding="5dp"
+        android:text="Replace A"
+        android:textSize="12dp"
+        app:layout_constraintStart_toEndOf="@id/button_add_fragment_b"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button_back_fragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="BackFragment"
+        android:padding="5dp"
+        android:text="back"
+        android:textSize="12dp"
+        app:layout_constraintBottom_toBottomOf="@+id/button_fragment_pop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/button_replace_fragment"
+        app:layout_constraintTop_toTopOf="@+id/button_replace_fragment" />
+
+    <Button
+        android:id="@+id/button_fragment_pop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:onClick="PopFragment"
+        android:padding="5dp"
+        android:text="pop A"
+        android:textSize="12dp"
+        app:layout_constraintStart_toEndOf="@+id/button_remove_fragment_b"
+        app:layout_constraintTop_toBottomOf="@+id/button_replace_fragment" />
+
+    <EditText
+        android:id="@+id/edit_text_data_to_fragment"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="30dp"
+        android:hint="Input data to send to fragment A"
+        android:textSize="15dp"
+        app:layout_constraintEnd_toStartOf="@+id/button_send_data_fragment"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/button_remove_fragment_a" />
+
+    <Button
+        android:id="@+id/button_send_data_fragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
+        android:onClick="PopFragment"
+        android:padding="5dp"
+        android:text="Send"
+        android:textSize="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_fragment_pop" />
+
+    <TextView
+        android:id="@+id/text_view_activity_data"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:text="Data received from Fragment: "
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_text_data_to_fragment" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="10dp"
+        android:text="Go to new Activity to learn Passing data between fragments"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/button_transfer_data_fragment"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/button_transfer_data_fragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:padding="5dp"
+        android:text="Go"
+        android:textSize="12dp"
+        android:onClick="AddTransferFragment"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <FrameLayout
+        android:id="@+id/frame_layout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_view_activity_data" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

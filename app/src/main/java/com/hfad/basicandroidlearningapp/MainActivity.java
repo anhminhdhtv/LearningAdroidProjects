@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         btnFragments.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), FirstActivity.class));
+                startActivity(new Intent(getApplicationContext(), FragmentsActivity.class));
             }
         });
 
