@@ -1,5 +1,6 @@
 package com.hfad.basicandroidlearningapp;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
@@ -22,6 +23,8 @@ public class FragmentA extends Fragment {
     private Button btnSendToActivity;
     private EditText editTextDataSendToActivity;
 
+    private DataTransfer dataTransfer;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -30,11 +33,22 @@ public class FragmentA extends Fragment {
         editTextDataSendToActivity = view.findViewById(R.id.edit_text_data_to_activity);
         btnSendToActivity = view.findViewById(R.id.btn_data_to_activity);
 
+        if (getActivity()  instanceof TransferFragmentActivity){
+            editTextDataSendToActivity.setHint("Input data to send to Fragment B");
+            textViewReceivedData.setVisibility(View.INVISIBLE);
+        }
+
         btnSendToActivity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TextView textViewActivity =  getActivity().findViewById(R.id.text_view_activity_data);
-                textViewActivity.setText("Data received from Fragment: " + editTextDataSendToActivity.getText());
+
+                if (getActivity()  instanceof TransferFragmentActivity){
+                    dataTransfer.sendData(editTextDataSendToActivity.getText().toString());
+                }
+                else {
+                    TextView textViewActivity =  getActivity().findViewById(R.id.text_view_activity_data);
+                    textViewActivity.setText("Data received from Fragment: " + editTextDataSendToActivity.getText());
+                }
             }
         });
         return view;
@@ -102,5 +116,9 @@ public class FragmentA extends Fragment {
 
     public void SetData(String data){
         textViewReceivedData.setText("Data received from Activity: " + data);
+    }
+
+    interface DataTransfer{
+        void sendData(String data);
     }
 }

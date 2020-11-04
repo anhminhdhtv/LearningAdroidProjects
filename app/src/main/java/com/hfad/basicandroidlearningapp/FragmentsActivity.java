@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -112,8 +113,10 @@ public class FragmentsActivity extends AppCompatActivity {
     }
 
     public void AddTransferFragment(View view){
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(R.id.frame_layout, new TransferDataFragment(), "TAG_TRANSFER_FRAGMENT");
-        fragmentTransaction.commit();
+//        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//        fragmentTransaction.add(R.id.frame_layout, new TransferDataFragment(), "TAG_TRANSFER_FRAGMENT");
+//
+//        fragmentTransaction.commit();
+        startActivity(new Intent(this, TransferFragmentActivity.class));
     }
 }
