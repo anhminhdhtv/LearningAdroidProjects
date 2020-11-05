@@ -20,14 +20,15 @@
         android:id="@+id/text_view_fragment_b_data"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
         android:text="Data from Fragment A is :"
+        android:textAlignment="center"
+        android:textColor="@color/black"
         android:textSize="15dp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"
-        android:textColor="@color/black"/>
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
 
 

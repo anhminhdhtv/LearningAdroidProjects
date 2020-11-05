@@ -134,35 +134,47 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginBottom="10dp"
-        android:text="Go to new Activity to learn Passing data between fragments"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="15dp"
+        android:text="Passing data between fragments"
         android:textColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/button_transfer_data_fragment"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toStartOf="@+id/button_add_transfer_data_fragment"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_view_activity_data" />
 
     <Button
-        android:id="@+id/button_transfer_data_fragment"
+        android:id="@+id/button_add_transfer_data_fragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
-        android:padding="5dp"
-        android:text="Go"
-        android:textSize="12dp"
         android:onClick="AddTransferFragment"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:padding="5dp"
+        android:text="Add"
+        android:textSize="12dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView4"
+        app:layout_constraintEnd_toStartOf="@+id/button_remove_transfer_data_fragment"
+        app:layout_constraintTop_toTopOf="@+id/textView4"/>
+
+    <Button
+        android:id="@+id/button_remove_transfer_data_fragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:onClick="RemoveTransferFragment"
+        android:padding="5dp"
+        android:text="Remove"
+        android:textSize="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/button_add_transfer_data_fragment" />
 
     <FrameLayout
         android:id="@+id/frame_layout"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/button_transfer_data_fragment"
+        android:layout_marginTop="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_view_activity_data" />
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

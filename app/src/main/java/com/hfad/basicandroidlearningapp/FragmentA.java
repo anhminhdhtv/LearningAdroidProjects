@@ -14,6 +14,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 public class FragmentA extends Fragment {
 
@@ -33,16 +34,20 @@ public class FragmentA extends Fragment {
         editTextDataSendToActivity = view.findViewById(R.id.edit_text_data_to_activity);
         btnSendToActivity = view.findViewById(R.id.btn_data_to_activity);
 
-        if (getActivity()  instanceof TransferFragmentActivity){
+        if (getParentFragment()  instanceof TransferDataFragment){
             editTextDataSendToActivity.setHint("Input data to send to Fragment B");
-            textViewReceivedData.setVisibility(View.INVISIBLE);
+            textViewReceivedData.setVisibility(View.GONE);
+        }
+        else {
+            editTextDataSendToActivity.setHint("Input data to send back to Activity");
+            textViewReceivedData.setVisibility(View.VISIBLE);
         }
 
         btnSendToActivity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                if (getActivity()  instanceof TransferFragmentActivity){
+                if (dataTransfer != null){
                     dataTransfer.sendData(editTextDataSendToActivity.getText().toString());
                 }
                 else {
@@ -58,6 +63,7 @@ public class FragmentA extends Fragment {
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         Log.i(LOG_TAG, "FragmentA - onAttach");
+        dataTransfer = (DataTransfer) getParentFragment();
     }
 
     @Override

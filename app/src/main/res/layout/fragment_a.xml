@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#E91E63">
+    android:background="#3F51B5">
 
     <TextView
         android:id="@+id/textView3"
@@ -17,41 +17,43 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/text_view_fragment_received_data"
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:text="Data received from Activity: "
-        android:textColor="@color/white"
-        android:textSize="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintTop_toBottomOf="@+id/textView3"
+        android:orientation="vertical">
+        <EditText
+            android:id="@+id/edit_text_data_to_activity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Input data to send back to Activity"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:textSize="12dp"
+            android:layout_gravity="center"/>
 
+        <Button
+            android:id="@+id/btn_data_to_activity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="send"
+            android:layout_gravity="center"/>
 
-    <EditText
-        android:id="@+id/edit_text_data_to_activity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:hint="Input data to send back to Activity"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white"
-        android:textSize="12dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_view_fragment_received_data" />
+        <TextView
+            android:id="@+id/text_view_fragment_received_data"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Data received from Activity: "
+            android:textColor="@color/white"
+            android:textSize="15dp"
+            android:layout_gravity="center"/>
 
-    <Button
-        android:id="@+id/btn_data_to_activity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="send"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_text_data_to_activity" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

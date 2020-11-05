@@ -22,10 +22,9 @@ public class FragmentB extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_b, container, false);
         textViewData = view.findViewById(R.id.text_view_fragment_b_data);
-        if(getActivity() instanceof TransferFragmentActivity){
+        if (getParentFragment()  instanceof TransferDataFragment) {
             textViewData.setVisibility(View.VISIBLE);
-        }
-        else {
+        } else {
             textViewData.setVisibility(View.INVISIBLE);
         }
         return view;
@@ -47,13 +46,6 @@ public class FragmentB extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         Log.i(LOG_TAG, "FragmentB - onActivityCreated");
-        Activity activity = getActivity();
-        if (activity.getClass().equals(TransferFragmentActivity.class)){
-            if (true){
-                int i = 0;
-
-            }
-        }
     }
 
     @Override
@@ -98,7 +90,7 @@ public class FragmentB extends Fragment {
         Log.i(LOG_TAG, "FragmentB - onResume");
     }
 
-    public void DisplayData(String data){
-        textViewData.setText(data);
+    public void DisplayData(String data) {
+        textViewData.setText("Data from Fragment A is :" + data);
     }
 }
