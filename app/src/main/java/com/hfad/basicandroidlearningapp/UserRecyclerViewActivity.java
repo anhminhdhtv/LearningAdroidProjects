@@ -1,25 +1,25 @@
 package com.hfad.basicandroidlearningapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class UserListViewActivity extends AppCompatActivity {
+public class UserRecyclerViewActivity extends AppCompatActivity {
 
     private ArrayList<UserInfo> userInfos;
-    private UserListViewAdapter userListViewAdapter;
-    private ListView listViewUsers;
+    private RecyclerView recyclerView;
+    UserRecyclerViewAdapter userRecyclerViewAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_list_view);
+        setContentView(R.layout.activity_user_recycler_view);
+
+        recyclerView = findViewById(R.id.recycler_view_user);
 
         userInfos = new ArrayList<>();
         userInfos.add(new UserInfo("Nguyen Van A", "12/11/1996", "nguyenvana@gmail.com", true));
@@ -32,15 +32,9 @@ public class UserListViewActivity extends AppCompatActivity {
         userInfos.add(new UserInfo("Nguyen Van H", "12/11/1996", "nguyenvanh@gmail.com", false));
         userInfos.add(new UserInfo("Nguyen Van I", "12/11/1996", "nguyenvani@gmail.com", false));
 
-        userListViewAdapter = new UserListViewAdapter(userInfos);
-        listViewUsers = findViewById(R.id.list_view_user);
-        listViewUsers.setAdapter(userListViewAdapter);
+        userRecyclerViewAdapter = new UserRecyclerViewAdapter(userInfos);
+        recyclerView.setAdapter(userRecyclerViewAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        listViewUsers.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(getApplicationContext(), userInfos.get(i).getUserName(), Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 }

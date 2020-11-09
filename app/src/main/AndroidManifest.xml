@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.BasicAndroidLearningApp">
-        <activity android:name=".UserListViewActivity"></activity>
+        <activity android:name=".UserRecyclerViewActivity"></activity>
+        <activity android:name=".UserListViewActivity" />
         <activity android:name=".UiControlsActivity" />
         <activity android:name=".FragmentsActivity" />
         <activity android:name=".ImplicitIntentActivity" />

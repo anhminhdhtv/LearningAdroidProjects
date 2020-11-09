@@ -8,34 +8,63 @@
 
     <Button
         android:id="@+id/button_activity"
-        android:layout_width="150dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="150dp"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
         android:text="Activities"
+        app:layout_constraintBottom_toTopOf="@+id/button_fragments"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/button_fragments"
-        android:layout_width="150dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginBottom="24dp"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
         android:text="Fragments"
         app:layout_constraintBottom_toTopOf="@+id/button_ui_controls"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button_activity" />
 
     <Button
         android:id="@+id/button_ui_controls"
-        android:layout_width="150dp"
-        android:layout_height="50dp"
-        android:layout_marginBottom="150dp"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
         android:text="Ui controls"
+        app:layout_constraintBottom_toTopOf="@+id/button_list_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_fragments" />
+
+    <Button
+        android:id="@+id/button_list_view"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="List view"
+        app:layout_constraintBottom_toTopOf="@+id/button_recycler_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_ui_controls" />
+
+    <Button
+        android:id="@+id/button_recycler_view"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="51dp"
+        android:layout_marginBottom="30dp"
+        android:text="Recycler View"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_list_view" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

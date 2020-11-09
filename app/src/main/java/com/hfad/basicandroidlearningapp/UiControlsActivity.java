@@ -8,6 +8,8 @@ import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
@@ -18,6 +20,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.Annotation;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -58,9 +61,12 @@ public class UiControlsActivity extends AppCompatActivity {
         // Email list processing
         setEmailList();
 
+        Animation animationScale = AnimationUtils.loadAnimation(this, R.anim.anim_scale);
+
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                v.startAnimation(animationScale);
                 saveInformation();
             }
         });
@@ -153,12 +159,16 @@ public class UiControlsActivity extends AppCompatActivity {
         String email = editTextEmail.getText().toString();
 
         if(name.length() == 0 || dateOfBirth.length() == 0 ||email.length() == 0 || (!flagMale & !flagFemale)){
+
+            buttonSave.setImageResource(R.drawable.ic_x_mark);
+
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("Error");
+            builder.setTitle("Register fail");
             builder.setMessage("One or more information was not entered");
             builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
+                    buttonSave.setImageResource(R.drawable.ic_check_mark);
                     dialog.cancel();
                 }
             });
@@ -166,7 +176,7 @@ public class UiControlsActivity extends AppCompatActivity {
             alert.show();
         }
         else {
-            Toast.makeText(this, "Register Success!", Toast.LENGTH_LONG);
+            Toast.makeText(this, "Register Success!", Toast.LENGTH_LONG).show();
         }
     }
 }

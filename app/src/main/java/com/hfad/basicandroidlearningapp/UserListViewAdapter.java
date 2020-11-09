@@ -5,6 +5,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -45,7 +46,7 @@ public class UserListViewAdapter extends BaseAdapter {
         UserInfo userInfo = (UserInfo) getItem(position);
         ((TextView)view.findViewById(R.id.text_view_user_name)).setText(userInfo.getUserName());
         ((TextView)view.findViewById(R.id.text_view_date_of_birth)).setText(userInfo.getDayOfBirth());
-        ((TextView)view.findViewById(R.id.text_view_email)).setText(userInfo.getUserName());
+        ((TextView)view.findViewById(R.id.text_view_email)).setText(userInfo.getUserEmail());
 
         if(userInfo.isMan()){
             ((ImageView)view.findViewById(R.id.image_avatar)).setImageResource(R.drawable.ic_man);
@@ -54,6 +55,7 @@ public class UserListViewAdapter extends BaseAdapter {
         else {
             ((ImageView)view.findViewById(R.id.image_avatar)).setImageResource(R.drawable.ic_woman);
         }
+
         return view;
     }
 }
