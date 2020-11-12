@@ -14,4 +14,14 @@ public class Converters {
     public static Long dateToTimestamp(Date date){
         return date == null ? null : date.getTime();
     }
+
+    @TypeConverter
+    public static Boolean fromInt(int value){
+        return value == 1 ? true : false;
+    }
+
+    @TypeConverter
+    public static int booleanToInt(boolean bool){
+        return bool == true ? 1: 0;
+    }
 }

@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".UiControlsActivity">
+
+    <TextView
+        android:id="@+id/title_task_form"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="Register form"
+        android:textColor="@color/black"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/image_avatar"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title_task_form"
+        app:srcCompat="@drawable/ic_avatar" />
+
+    <TextView
+        android:id="@+id/title_personal_form"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:text="Personal Information"
+        android:textColor="@color/black"
+        android:textSize="17dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/image_avatar"
+        app:layout_constraintStart_toEndOf="@+id/image_avatar"
+        app:layout_constraintTop_toTopOf="@+id/image_avatar" />
+
+    <TextView
+        android:id="@+id/tile_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="10dp"
+        android:text="Name"
+        android:textColor="@color/black"
+        android:textSize="15dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title_personal_form" />
+
+    <EditText
+        android:id="@+id/edit_text_name"
+        android:layout_width="0dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="30dp"
+        android:background="@drawable/custom_edit_text"
+        android:paddingHorizontal="8dp"
+        android:singleLine="true"
+        android:textColor="@color/black"
+        android:textSize="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/tile_name"
+        app:layout_constraintTop_toBottomOf="@id/tile_name" />
+
+    <TextView
+        android:id="@+id/tile_sex"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="10dp"
+        android:text="Sex"
+        android:textColor="@color/black"
+        android:textSize="15dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_text_name" />
+
+    <RadioGroup
+        android:id="@+id/radio_button_group"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:layout_marginTop="2dp"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="@id/tile_sex"
+        app:layout_constraintTop_toBottomOf="@id/tile_sex">
+
+        <RadioButton
+            android:id="@+id/radio_male"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:onClick="RadioButtonClick"
+            android:text="Male"
+            android:textSize="15dp" />
+
+        <RadioButton
+            android:id="@+id/radio_female"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:onClick="RadioButtonClick"
+            android:text="Female"
+            android:textSize="15dp"
+            android:layout_marginStart="10dp"/>
+
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/tile_birthday"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="10dp"
+        android:text="Birthday"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/radio_button_group" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/group_view_birthday"
+        android:layout_width="0dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="30dp"
+        android:background="@drawable/custom_edit_text"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/tile_birthday"
+        app:layout_constraintTop_toBottomOf="@id/tile_birthday">
+
+        <TextView
+            android:id="@+id/text_view_date"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="10dp"
+            android:gravity="center_vertical"
+            android:paddingHorizontal="8dp"
+            android:textColor="@color/black"
+            android:textSize="15dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/button_date_picker"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageButton
+            android:id="@+id/button_date_picker"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginEnd="10dp"
+            android:background="@android:color/transparent"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_calendar"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="25dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/group_view_birthday"
+        app:srcCompat="@drawable/ic_paper_plane" />
+
+    <TextView
+        android:id="@+id/title_contact_information"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:text="Contact Information"
+        android:textColor="@color/black"
+        android:textSize="17dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView2"
+        app:layout_constraintStart_toEndOf="@+id/imageView2"
+        app:layout_constraintTop_toTopOf="@+id/imageView2" />
+
+    <TextView
+        android:id="@+id/title_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="10dp"
+        android:text="Address"
+        android:textColor="@color/black"
+        android:textSize="15dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title_contact_information" />
+
+    <EditText
+        android:id="@+id/edit_text_address"
+        android:layout_width="0dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="30dp"
+        android:background="@drawable/custom_edit_text"
+        android:paddingHorizontal="8dp"
+        android:singleLine="true"
+        android:textSize="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/title_address"
+        app:layout_constraintTop_toBottomOf="@id/title_address" />
+
+    <TextView
+        android:id="@+id/title_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="10dp"
+        android:text="Email"
+        android:textColor="@color/black"
+        android:textSize="15dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_text_address" />
+
+    <LinearLayout
+        android:id="@+id/group_view_email"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_marginHorizontal="30dp"
+        android:layout_marginTop="2dp"
+        android:background="@drawable/custom_edit_text"
+        android:orientation="horizontal"
+        android:weightSum="5"
+        app:layout_constraintStart_toStartOf="@+id/title_email"
+        app:layout_constraintTop_toBottomOf="@id/title_email">
+
+        <EditText
+            android:id="@+id/edit_text_email"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:background="@android:color/transparent"
+            android:paddingHorizontal="6dp"
+            android:singleLine="true"
+            android:layout_weight="2.8"
+            android:textSize="15dp" />
+
+        <Spinner
+            android:id="@+id/spinner_email"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:textSize="15dp"
+            android:layout_weight="2.2"
+            android:paddingHorizontal="0dp"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/title_"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="10dp"
+        android:text="Hobbies"
+        android:textColor="@color/black"
+        android:textSize="15dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/group_view_email" />
+
+    <CheckBox
+        android:id="@+id/checkbox_reading_book"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:layout_marginTop="2dp"
+        android:drawableRight="@drawable/ic_book"
+        app:layout_constraintStart_toStartOf="@+id/title_"
+        app:layout_constraintTop_toBottomOf="@+id/title_" />
+
+    <CheckBox
+        android:id="@+id/checkbox_playing_game"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:drawableRight="@drawable/ic_gamepad"
+        app:layout_constraintBottom_toBottomOf="@+id/checkbox_reading_book"
+        app:layout_constraintEnd_toStartOf="@+id/checkbox_listening_music"
+        app:layout_constraintStart_toEndOf="@+id/checkbox_reading_book"
+        app:layout_constraintTop_toTopOf="@+id/checkbox_reading_book" />
+
+    <CheckBox
+        android:id="@+id/checkbox_listening_music"
+        android:layout_width="0dp"
+        android:layout_height="35dp"
+        android:layout_marginEnd="30dp"
+        android:drawableRight="@drawable/ic_headphones"
+        app:layout_constraintBottom_toBottomOf="@+id/checkbox_playing_game"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/checkbox_playing_game" />
+
+    <ImageButton
+        android:id="@+id/button_save"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="20dp"
+        android:background="@android:color/transparent"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/ic_check_mark" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

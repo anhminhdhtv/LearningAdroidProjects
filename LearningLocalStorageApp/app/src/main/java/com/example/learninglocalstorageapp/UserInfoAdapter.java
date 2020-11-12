@@ -1,8 +1,12 @@
 package com.example.learninglocalstorageapp;
 
+import android.content.Context;
+import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -10,14 +14,18 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
 
-public class UserInfoAdapter extends RecyclerView.Adapter<UserRecyclerViewAdapter.UserItemViewHolder> {
+public class UserInfoAdapter extends RecyclerView.Adapter<UserInfoAdapter.UserItemViewHolder> {
 
-    private ArrayList<UserInfo> userInfos;
+    private List<UserInfo> userInfos;
+    private Context mContext;
 
-    public UserInfoAdapter(ArrayList<UserInfo> userInfos) {
+    public UserInfoAdapter(List<UserInfo> userInfos, Context context) {
         this.userInfos = userInfos;
+        this.mContext = context;
     }
 
     @NonNull
@@ -32,13 +40,26 @@ public class UserInfoAdapter extends RecyclerView.Adapter<UserRecyclerViewAdapte
         UserInfo userInfo = userInfos.get(position);
 
         holder.textViewName.setText(userInfo.getUserName());
-        holder.textViewDayOfBirth.setText(userInfo.getDayOfBirth());
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyy");
+        String birthDay =  simpleDateFormat.format(userInfo.getDayOfBirth().getTime());
+
+        holder.textViewDayOfBirth.setText(birthDay);
         if (userInfo.isMan()){
             holder.imageViewAvatar.setImageResource(R.drawable.ic_man);
         }
         else {
             holder.imageViewAvatar.setImageResource(R.drawable.ic_woman);
         }
+
+        holder.textViewEmail.setText(userInfo.getUserName());
+        holder.btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainActivity)mContext).delete(userInfo);
+            }
+        });
+
 
     }
 
@@ -52,10 +73,13 @@ public class UserInfoAdapter extends RecyclerView.Adapter<UserRecyclerViewAdapte
         private ImageView imageViewAvatar;
         private TextView textViewName;
         private TextView textViewDayOfBirth;
+        private TextView textViewEmail;
+
+        private ImageButton btnDelete;
+
 
         public UserItemViewHolder(@NonNull View itemView) {
             super(itemView);
-
 
             ConstraintLayout.LayoutParams lp = new ConstraintLayout.LayoutParams(itemView.getLayoutParams());
             lp.setMargins(0,30,0,0);
@@ -65,6 +89,9 @@ public class UserInfoAdapter extends RecyclerView.Adapter<UserRecyclerViewAdapte
             imageViewAvatar = itemView.findViewById(R.id.image_avatar);
             textViewName = itemView.findViewById(R.id.text_view_user_name);
             textViewDayOfBirth = itemView.findViewById(R.id.text_view_date_of_birth);
+            textViewEmail = itemView.findViewById(R.id.text_view_email);
+            btnDelete = itemView.findViewById(R.id.button_delete_user);
+
         }
     }
 }

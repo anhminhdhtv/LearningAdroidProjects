@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey;
 
 import java.util.Date;
 
-@Entity(tableName = "User_table")
+@Entity(tableName = "user_table")
 public class UserInfo {
 
     @PrimaryKey
@@ -21,9 +21,10 @@ public class UserInfo {
     @ColumnInfo(name = "email")
     private String userEmail;
 
+    @ColumnInfo(name = "sex")
     private boolean man;
 
-    public UserInfo(String userName, Date dayOfBirth, String userEmail, boolean man) {
+    public UserInfo(@NonNull String userName, Date dayOfBirth, String userEmail, boolean man) {
         this.userName = userName;
         this.dayOfBirth = dayOfBirth;
         this.userEmail = userEmail;
