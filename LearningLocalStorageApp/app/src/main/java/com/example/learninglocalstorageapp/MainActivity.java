@@ -1,6 +1,5 @@
 package com.example.learninglocalstorageapp;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -11,19 +10,16 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
 public class MainActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private  UserInfoAdapter userInfoAdapter;
 
+    List<UserInfo> mUserInfoList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,13 +38,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        getAllUserInfos();
-    }
+        userInfoAdapter = new UserInfoAdapter(this);
+        recyclerView.setAdapter(userInfoAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-
+        getAllUserInfoList();
     }
 
     @Override
@@ -59,18 +53,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void update (UserInfo userInfo){
         new updateAsyncTask(UserDatabase.getDatabase(getApplication()).userInfoDao()).execute(userInfo);
-    }
-
-    public void delete (UserInfo userInfo){
-        new deleteAsyncTask(UserDatabase.getDatabase(getApplication()).userInfoDao()).execute(userInfo);
-    }
-
-    private void getAllUserInfos (){
-        new getAllUsersAsyncTask(UserDatabase.getDatabase(getApplication()).userInfoDao(),this).execute();
-    }
-
-    private void deleteAllUsers (){
-        new deleteAllUsersAsyncTask(UserDatabase.getDatabase(getApplication()).userInfoDao()).execute();
     }
 
     private class updateAsyncTask extends AsyncTask<UserInfo, Void, Void>{
@@ -88,6 +70,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
+    public void delete (UserInfo userInfo){
+        new deleteAsyncTask(UserDatabase.getDatabase(getApplication()).userInfoDao()).execute(userInfo);
+    }
     private class deleteAsyncTask extends AsyncTask<UserInfo, Void, Void>{
 
         private UserInfoDao mUserInfoDao;
@@ -99,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            userInfoAdapter.notifyItemRemoved(userInfoAdapter.get);
+            getAllUserInfoList();
         }
 
         @Override
@@ -107,6 +93,37 @@ public class MainActivity extends AppCompatActivity {
             mUserInfoDao.delete(userInfos[0]);
             return null;
         }
+    }
+
+    private void getAllUserInfoList(){
+        new getAllUsersAsyncTask(UserDatabase.getDatabase(getApplication()).userInfoDao(),this).execute();
+    }
+
+    private class getAllUsersAsyncTask extends AsyncTask<Void, Void, List<UserInfo>>{
+
+        private UserInfoDao mUserInfoDao;
+        private Context mContext;
+
+        public getAllUsersAsyncTask(UserInfoDao dao, Context context) {
+            this.mUserInfoDao = dao;
+            this.mContext = context;
+
+        }
+
+        @Override
+        protected void onPostExecute(List<UserInfo> userInfos) {
+            super.onPostExecute(userInfos);
+            userInfoAdapter.SetUserList(userInfos);
+        }
+
+        @Override
+        protected List<UserInfo> doInBackground(Void... voids) {
+            return mUserInfoDao.getAll();
+        }
+    }
+
+    private void deleteAllUsers (){
+        new deleteAllUsersAsyncTask(UserDatabase.getDatabase(getApplication()).userInfoDao()).execute();
     }
 
     private class deleteAllUsersAsyncTask extends AsyncTask<Void, Void, Void>{
@@ -124,28 +141,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private class getAllUsersAsyncTask extends AsyncTask<Void, Void, List<UserInfo>>{
 
-        private UserInfoDao mUserInfoDao;
-        private Context mcontext;
 
-        public getAllUsersAsyncTask(UserInfoDao dao, Context context) {
-            this.mUserInfoDao = dao;
-            this.mcontext = context;
 
-        }
-
-        @Override
-        protected void onPostExecute(List<UserInfo> userInfos) {
-            super.onPostExecute(userInfos);
-            userInfoAdapter = new UserInfoAdapter(userInfos, mcontext);
-            recyclerView.setAdapter(userInfoAdapter);
-            recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        }
-
-        @Override
-        protected List<UserInfo> doInBackground(Void... voids) {
-            return mUserInfoDao.getAll();
-        }
-    }
 }

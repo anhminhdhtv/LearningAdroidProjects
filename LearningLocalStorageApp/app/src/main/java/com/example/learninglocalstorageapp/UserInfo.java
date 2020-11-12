@@ -10,8 +10,9 @@ import java.util.Date;
 @Entity(tableName = "user_table")
 public class UserInfo {
 
-    @PrimaryKey
-    @NonNull
+    @PrimaryKey(autoGenerate = true)
+    private int id;
+
     @ColumnInfo(name = "user_name")
     private String userName;
 
@@ -29,6 +30,14 @@ public class UserInfo {
         this.dayOfBirth = dayOfBirth;
         this.userEmail = userEmail;
         this.man = man;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public boolean isMan() {

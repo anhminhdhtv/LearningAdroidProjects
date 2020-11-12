@@ -1,11 +1,9 @@
 package com.example.learninglocalstorageapp;
 
 import android.content.Context;
-import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -15,16 +13,14 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.List;
 
 public class UserInfoAdapter extends RecyclerView.Adapter<UserInfoAdapter.UserItemViewHolder> {
 
-    private List<UserInfo> userInfos;
+    private List<UserInfo> mUserInfoList;
     private Context mContext;
 
-    public UserInfoAdapter(List<UserInfo> userInfos, Context context) {
-        this.userInfos = userInfos;
+    public UserInfoAdapter(Context context) {
         this.mContext = context;
     }
 
@@ -37,7 +33,7 @@ public class UserInfoAdapter extends RecyclerView.Adapter<UserInfoAdapter.UserIt
     @Override
     public void onBindViewHolder(@NonNull UserItemViewHolder holder, int position) {
 
-        UserInfo userInfo = userInfos.get(position);
+        UserInfo userInfo = mUserInfoList.get(position);
 
         holder.textViewName.setText(userInfo.getUserName());
 
@@ -63,9 +59,20 @@ public class UserInfoAdapter extends RecyclerView.Adapter<UserInfoAdapter.UserIt
 
     }
 
+    public void SetUserList(List<UserInfo> userInfoList){
+        mUserInfoList = userInfoList;
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getItemCount() {
-        return userInfos.size();
+        if (mUserInfoList != null){
+            return mUserInfoList.size();
+        }
+        else {
+            return 0;
+        }
+
     }
 
     public static class UserItemViewHolder extends RecyclerView.ViewHolder{
