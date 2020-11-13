@@ -48,11 +48,18 @@ public class UserInfoAdapter extends RecyclerView.Adapter<UserInfoAdapter.UserIt
             holder.imageViewAvatar.setImageResource(R.drawable.ic_woman);
         }
 
-        holder.textViewEmail.setText(userInfo.getUserName());
+        holder.textViewEmail.setText(userInfo.getUserAddress());
         holder.btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ((MainActivity)mContext).delete(userInfo);
+            }
+        });
+
+        holder.btnEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainActivity)mContext).updateUser(userInfo.getId());
             }
         });
 
@@ -81,8 +88,8 @@ public class UserInfoAdapter extends RecyclerView.Adapter<UserInfoAdapter.UserIt
         private TextView textViewName;
         private TextView textViewDayOfBirth;
         private TextView textViewEmail;
-
         private ImageButton btnDelete;
+        private ImageButton btnEdit;
 
 
         public UserItemViewHolder(@NonNull View itemView) {
@@ -96,8 +103,9 @@ public class UserInfoAdapter extends RecyclerView.Adapter<UserInfoAdapter.UserIt
             imageViewAvatar = itemView.findViewById(R.id.image_avatar);
             textViewName = itemView.findViewById(R.id.text_view_user_name);
             textViewDayOfBirth = itemView.findViewById(R.id.text_view_date_of_birth);
-            textViewEmail = itemView.findViewById(R.id.text_view_email);
+            textViewEmail = itemView.findViewById(R.id.text_view_address);
             btnDelete = itemView.findViewById(R.id.button_delete_user);
+            btnEdit = itemView.findViewById(R.id.button_edit_user);
 
         }
     }

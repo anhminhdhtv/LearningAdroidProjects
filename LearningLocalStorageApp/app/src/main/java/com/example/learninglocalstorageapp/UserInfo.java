@@ -25,11 +25,24 @@ public class UserInfo {
     @ColumnInfo(name = "sex")
     private boolean man;
 
-    public UserInfo(@NonNull String userName, Date dayOfBirth, String userEmail, boolean man) {
+    @ColumnInfo(name = "address")
+    private String userAddress;
+
+
+    public UserInfo(@NonNull String userName, Date dayOfBirth, String userEmail, boolean man, String userAddress) {
         this.userName = userName;
         this.dayOfBirth = dayOfBirth;
         this.userEmail = userEmail;
         this.man = man;
+        this.userAddress = userAddress;
+    }
+
+    public String getUserAddress() {
+        return userAddress;
+    }
+
+    public void setUserAddress(String userAddress) {
+        this.userAddress = userAddress;
     }
 
     public int getId() {

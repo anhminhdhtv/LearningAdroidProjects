@@ -38,21 +38,28 @@ public class UserFormActivity extends AppCompatActivity {
     private ImageButton buttonSave;
     private Date dayOfBirth;
     private String selectedDomain;
-
+    private UserInfo currentUserInfo;
 
     private boolean flagFemale = false;
     private boolean flagMale = false;
+
+    public static final String EXTRA_START_MODE = "EXTRA_START_MODE";
+    public static final String EXTRA_UPDATED_USER_ID = "EXTRA_UPDATED_USER_ID";
+    public static final String VALUE_START_MODE_INSERT = "start_mode_insert";
+    public static final String VALUE_START_MODE_UPDATE = "start_mode_update";
+
+    private String mStartMode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_uer_form);
+
         mappingView();
 
         btnDatePicker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 setDatePicker();
             }
         });
@@ -61,7 +68,6 @@ public class UserFormActivity extends AppCompatActivity {
         setEmailList();
 
         Animation animationScale = AnimationUtils.loadAnimation(this, R.anim.anim_scale);
-
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -69,6 +75,25 @@ public class UserFormActivity extends AppCompatActivity {
                 saveInformation();
             }
         });
+
+        mStartMode = getIntent().getStringExtra(EXTRA_START_MODE);
+        if(mStartMode.equals(VALUE_START_MODE_UPDATE)){
+            int id = getIntent().getIntExtra(EXTRA_UPDATED_USER_ID, 0);
+            findUserById(id);
+        }
+
+    }
+
+    private void mappingView() {
+        editTextName = findViewById(R.id.edit_text_name);
+        textViewBirthDay = findViewById(R.id.text_view_date);
+        btnDatePicker = findViewById(R.id.button_date_picker);
+        editTextEmail = findViewById(R.id.edit_text_email);
+        spinnerEmail = findViewById(R.id.spinner_email);
+        radioButtonMale = findViewById(R.id.radio_male);
+        radioButtonFeMale = findViewById(R.id.radio_female);
+        editTextAddress = findViewById(R.id.edit_text_address);
+        buttonSave = findViewById(R.id.button_save);
     }
 
     private void setDatePicker() {
@@ -82,27 +107,11 @@ public class UserFormActivity extends AppCompatActivity {
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 calendar.set(year, month, dayOfMonth);
                 dayOfBirth =  Calendar.getInstance().getTime();
-//                dayOfBirth.setDate(dayOfMonth);
-//                dayOfBirth.setMonth(month);
-//                dayOfBirth.setYear(year);
-
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyy");
                 textViewBirthDay.setText(simpleDateFormat.format(dayOfBirth.getTime()));
             }
         }, year, month, day);
         datePickerDialog.show();
-    }
-
-    private void mappingView() {
-        editTextName = findViewById(R.id.edit_text_name);
-        textViewBirthDay = findViewById(R.id.text_view_date);
-        btnDatePicker = findViewById(R.id.button_date_picker);
-        editTextEmail = findViewById(R.id.edit_text_email);
-        spinnerEmail = findViewById(R.id.spinner_email);
-        radioButtonMale = findViewById(R.id.radio_male);
-        radioButtonFeMale = findViewById(R.id.radio_female);
-        editTextAddress = findViewById(R.id.edit_text_address);
-        buttonSave = findViewById(R.id.button_save);
     }
 
     public void RadioButtonClick(View view) {
@@ -156,10 +165,32 @@ public class UserFormActivity extends AppCompatActivity {
         });
     }
 
+    private void setUpdatedUserInfo(UserInfo userInfo){
+
+        editTextName.setText(userInfo.getUserName());
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyy");
+        dayOfBirth = userInfo.getDayOfBirth();
+        textViewBirthDay.setText(simpleDateFormat.format(dayOfBirth.getTime()));
+
+        if(userInfo.isMan()){
+            radioButtonMale.setChecked(true);
+            flagMale = true;
+        }
+        else {
+            radioButtonFeMale.setChecked(true);
+            flagFemale = true;
+        }
+
+        editTextAddress.setText(userInfo.getUserAddress());
+        editTextEmail.setText(userInfo.getUserEmail());
+    }
+
     private void saveInformation() {
         String name = editTextName.getText().toString();
         String dateOfBirth = textViewBirthDay.getText().toString();
         String email = editTextEmail.getText().toString();
+        String address = editTextAddress.getText().toString();
 
         if(name.length() == 0 || dateOfBirth.length() == 0 ||email.length() == 0 || (!flagMale & !flagFemale)){
 
@@ -179,7 +210,18 @@ public class UserFormActivity extends AppCompatActivity {
             alert.show();
         }
         else {
-            insert(new UserInfo(name, dayOfBirth, email, true));
+
+            if(mStartMode.equals(VALUE_START_MODE_INSERT)){
+                insert(new UserInfo(name, dayOfBirth, email, flagMale, address));
+            }
+            else {
+                currentUserInfo.setUserName(name);
+                currentUserInfo.setDayOfBirth(dayOfBirth);
+                currentUserInfo.setUserEmail(email);
+                currentUserInfo.setMan(flagMale);
+                currentUserInfo.setUserAddress(address);
+                update(currentUserInfo);
+            }
         }
     }
 
@@ -204,9 +246,66 @@ public class UserFormActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
+            Intent intent = new Intent();
+            setResult(RESULT_OK, intent);
             finish();
-            startActivity( new Intent(getApplicationContext(), MainActivity.class));
             Toast.makeText(getApplicationContext(), "Register Success!", Toast.LENGTH_LONG).show();
         }
     }
+
+    private void update (UserInfo userInfo){
+        new updateAsyncTask(UserDatabase.getDatabase(getApplication()).userInfoDao()).execute(userInfo);
+    }
+
+    private class updateAsyncTask extends AsyncTask<UserInfo, Void, Void>{
+
+        private UserInfoDao mUserInfoDao;
+
+        public updateAsyncTask(UserInfoDao dao) {
+            this.mUserInfoDao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(UserInfo... userInfos) {
+            mUserInfoDao.update(userInfos[0]);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            Intent intent = new Intent();
+            setResult(RESULT_OK, intent);
+            finish();
+            Toast.makeText(getApplicationContext(), "Update Success!", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void findUserById(int id){
+        new findUserByIdAsyncTask(UserDatabase.getDatabase(getApplication()).userInfoDao()).execute(id);
+    }
+
+    private class findUserByIdAsyncTask extends AsyncTask<Integer, Void, UserInfo>{
+
+        private UserInfoDao mUserInfoDao;
+
+        public findUserByIdAsyncTask(UserInfoDao dao) {
+            this.mUserInfoDao = dao;
+        }
+
+        @Override
+        protected UserInfo doInBackground(Integer... integers) {
+            return mUserInfoDao.findById(integers[0]);
+        }
+
+        @Override
+        protected void onPostExecute(UserInfo userInfo) {
+            super.onPostExecute(userInfo);
+            currentUserInfo = userInfo;
+            setUpdatedUserInfo(userInfo);
+        }
+    }
+
+
+
 }

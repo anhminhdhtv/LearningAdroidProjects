@@ -14,8 +14,8 @@ public interface UserInfoDao {
     @Query("SELECT * FROM user_table")
     public List<UserInfo> getAll();
 
-    @Query("SELECT * FROM user_table WHERE user_name LIKE :name ")
-    public UserInfo findByName(String name);
+    @Query("SELECT * FROM user_table WHERE id LIKE :id ")
+    public UserInfo findById(int id);
 
     @Insert()
     public void insert(UserInfo userInfo);

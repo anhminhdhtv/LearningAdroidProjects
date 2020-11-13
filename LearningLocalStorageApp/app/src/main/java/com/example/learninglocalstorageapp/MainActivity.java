@@ -18,8 +18,8 @@ public class MainActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private  UserInfoAdapter userInfoAdapter;
+    public static final int REQUEST_CODE = 123;
 
-    List<UserInfo> mUserInfoList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +34,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                startActivity(new Intent(MainActivity.this, UserFormActivity.class));
+                Intent intent = new Intent(MainActivity.this, UserFormActivity.class);
+                intent.putExtra(UserFormActivity.EXTRA_START_MODE, UserFormActivity.VALUE_START_MODE_INSERT);
+                startActivityForResult(intent, REQUEST_CODE);
             }
         });
 
@@ -45,35 +47,10 @@ public class MainActivity extends AppCompatActivity {
         getAllUserInfoList();
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-    }
-
-    private void update (UserInfo userInfo){
-        new updateAsyncTask(UserDatabase.getDatabase(getApplication()).userInfoDao()).execute(userInfo);
-    }
-
-    private class updateAsyncTask extends AsyncTask<UserInfo, Void, Void>{
-
-        private UserInfoDao mUserInfoDao;
-
-        public updateAsyncTask(UserInfoDao dao) {
-            this.mUserInfoDao = dao;
-        }
-
-        @Override
-        protected Void doInBackground(UserInfo... userInfos) {
-            mUserInfoDao.update(userInfos[0]);
-            return null;
-        }
-    }
-
-
     public void delete (UserInfo userInfo){
         new deleteAsyncTask(UserDatabase.getDatabase(getApplication()).userInfoDao()).execute(userInfo);
     }
+
     private class deleteAsyncTask extends AsyncTask<UserInfo, Void, Void>{
 
         private UserInfoDao mUserInfoDao;
@@ -141,7 +118,18 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public void updateUser(int  userId){
+        Intent intent = new Intent(MainActivity.this, UserFormActivity.class);
+        intent.putExtra(UserFormActivity.EXTRA_START_MODE, UserFormActivity.VALUE_START_MODE_UPDATE);
+        intent.putExtra(UserFormActivity.EXTRA_UPDATED_USER_ID, userId);
+        startActivityForResult(intent, REQUEST_CODE);
+    }
 
-
-
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == REQUEST_CODE && resultCode == RESULT_OK){
+            getAllUserInfoList();
+        }
+    }
 }

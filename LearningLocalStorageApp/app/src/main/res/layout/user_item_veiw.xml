@@ -47,7 +47,7 @@
             android:textSize="15dp" />
 
         <TextView
-            android:id="@+id/text_view_email"
+            android:id="@+id/text_view_address"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:textColor="@color/black"
