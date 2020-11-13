@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">LearningRestApi</string>
+
+    <string-array name="domain_array">
+        <item>\@gmail.com</item>
+        <item>\@yahoo.com</item>
+        <item>\@hotmail.com</item>
+    </string-array>
+</resources>
