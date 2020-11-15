@@ -44,7 +44,6 @@ public class UserFormActivity extends AppCompatActivity {
     // Mock server Url
     private final String PUT_USER_INFO_URL = "https://5fa8f65ac9b4e90016e69cdc.mockapi.io/api/users";
 
-
     private EditText editTextName;
     private TextView textViewBirthDay;
     private ImageButton btnDatePicker;
@@ -93,7 +92,6 @@ public class UserFormActivity extends AppCompatActivity {
             currentUserInfo = new Gson().fromJson(stringUserInfo, UserInfo.class);
             setUpdatedUserInfo(currentUserInfo);
         }
-
     }
 
     private void mappingView() {

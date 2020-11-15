@@ -88,13 +88,11 @@ public class UserInfoAdapter extends RecyclerView.Adapter<UserInfoAdapter.UserIt
         private ImageButton btnDelete;
         private ImageButton btnEdit;
 
-
         public UserItemViewHolder(@NonNull View itemView) {
             super(itemView);
 
             ConstraintLayout.LayoutParams lp = new ConstraintLayout.LayoutParams(itemView.getLayoutParams());
             lp.setMargins(0,30,0,0);
-
             itemView.setLayoutParams(lp);
 
             imageViewAvatar = itemView.findViewById(R.id.image_avatar);

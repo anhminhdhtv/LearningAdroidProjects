@@ -8,7 +8,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
+import com.android.volley.NetworkError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -19,8 +21,11 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Array;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -51,29 +56,27 @@ public class MainActivity extends AppCompatActivity {
         userInfoAdapter = new UserInfoAdapter(this);
         recyclerView.setAdapter(userInfoAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        String url = BASE_URL + "api/users";
-        getAllUserInfo(url);
+
+        getAllUserInfo();
     }
 
-    private void getAllUserInfo(String url) {
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        Type userInfoListType = new TypeToken<ArrayList<UserInfo>>() {
-                        }.getType();
-                        List<UserInfo> userInfoList = new Gson().fromJson(response, userInfoListType);
-                        userInfoAdapter.SetUserList(userInfoList);
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
+    private void getAllUserInfo(){
+        // url to get all User info
+        String url = BASE_URL+ "api/users";
 
-                    }
-                });
-        requestQueue.add(stringRequest);
+        // Create headers
+        HashMap<String, String> headers = new HashMap<>();
+        headers.put("Content-Type", "application/x-www-form-urlencoded; charset=utf-8");
+
+        GsonRequest<UserInfo[]> userInfoList = new GsonRequest<>(Request.Method.GET,
+                url, UserInfo[].class, headers, new Response.Listener<UserInfo[]>() {
+            @Override
+            public void onResponse(UserInfo[] response) {
+                userInfoAdapter.SetUserList(Arrays.asList(response));
+            }
+        }, errorListener);
+
+        SingletonRequestQueue.getInstance(this).addToRequestQueue(userInfoList);
     }
 
     public void updateUserInfo(UserInfo userInfo) {
@@ -86,29 +89,29 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void deleteUser(int userId){
-        String url = BASE_URL + "api/users/" + userId;
-        deleteUser(url);
-    }
 
-    private void deleteUser(String url){
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        String url = String.format(BASE_URL + "api/users/%s", String.valueOf(userId));
 
         StringRequest stringRequest = new StringRequest(Request.Method.DELETE, url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        String url = BASE_URL + "api/users";
-
                         // refresh data
-                        getAllUserInfo(url);
+                        getAllUserInfo();
                     }
                 },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-
-                    }
-                });
-        requestQueue.add(stringRequest);
+                errorListener);
+        SingletonRequestQueue.getInstance(this).addToRequestQueue(stringRequest);
     }
+
+    Response.ErrorListener errorListener = new Response.ErrorListener() {
+        @Override
+        public void onErrorResponse(VolleyError error) {
+            if (error instanceof NetworkError) {
+                Toast.makeText(getApplicationContext(), "No network available", Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_LONG).show();
+            }
+        }
+    };
 }
